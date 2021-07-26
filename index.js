@@ -26,7 +26,15 @@ const trackerTransformNode = new ZapparBabylon.ImageAnchorTransformNode('tracker
 // Add some content to the image tracker
 const box = BABYLON.Mesh.CreateBox('box', 1, scene, false, BABYLON.Mesh.DOUBLESIDE)
 box.parent = trackerTransformNode;
+box.visibility = 0;
 
+imageTracker.onVisible.bind(() => {
+  box.visibility = 1;
+});
+
+imageTracker.onNotVisible.bind(() => {
+  box.visibility = 0;
+});
 
 window.addEventListener('resize', () => {
     engine.resize();
